@@ -1,12 +1,25 @@
-
-
 .reservations{
   display: grid;
-  grid-gap: 2rem;
+  grid-column-gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 11fr 3fr;
 }
 
 .reserved__days{
   display: flex;
+  grid-column: 1;
+  grid-row: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.reservations__reserved{
+  grid-column: 1;
+    grid-row: 2;
+}
+
+.reserved__cancellations_title{
+  text-align: center;
 }
 
 .reserved__days>li::after {

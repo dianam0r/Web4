@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <h1>Restaurant Dashboard</h1>
-      <nav>
+      <nav className="nav">
         <button onClick={() => setActiveSection('reservations')}>Reservations</button>
         <button onClick={() => setActiveSection('overview')}>Overview</button>
       </nav>
