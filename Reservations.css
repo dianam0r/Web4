@@ -1,0 +1,52 @@
+
+
+.reservations{
+  display: grid;
+  grid-gap: 2rem;
+}
+
+.reserved__days{
+  display: flex;
+}
+
+.reserved__days>li::after {
+  content: "/";
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.reserved__days>li:last-child::after {
+  content: "";
+}
+
+.reserved__days li>button {
+  background-color: transparent;
+  color: #8C2704;
+  border: none;
+}
+
+.reserved__days li>button:hover {
+  font-weight: bold;
+  border: none;
+}
+
+.reserved__cards {
+  border: 0.1rem solid #8C2704;
+  padding: 3rem;
+  border-radius: 2rem;
+  color: white;
+}
+
+.cards__flex__time,
+.cards__flex__day{
+background-color: #8C2704;
+width: max-content;
+padding: 1rem;
+border-radius: 1rem;
+font-size: 4rem;
+}
+
+.cards__flex{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
