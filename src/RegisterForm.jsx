@@ -10,7 +10,11 @@ function RegisterForm({ setReservations }) {
       time: e.target.time.value,
     };
 
-    setReservations((prev) => [...prev, newReservation]);
+    setReservations((prev) => [newReservation, ...prev]);
+
+    alert(
+      `Reservation added:\nName: ${newReservation.name}\nGuests: ${newReservation.guests}\nDetails: ${newReservation.details || "None"}\nDate: ${newReservation.day}\nTime: ${newReservation.time}`
+    );
 
     e.target.reset();
   };

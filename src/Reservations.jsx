@@ -2,8 +2,13 @@ import './Reservations.css'
 import RegisterForm from './RegisterForm.jsx'
 import { useState, useEffect } from "react";
 
+
 function Reservations() {
+
   const [showForm, setShowForm] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [editingIndex, setEditingIndex] = useState(null);
+
   const [reservations, setReservations] = useState(() => {
     const savedReservations = localStorage.getItem("reservations");
     return savedReservations ? JSON.parse(savedReservations) : [];
@@ -41,21 +46,36 @@ function Reservations() {
     setReservations([]); 
     setCancellations([]); 
     localStorage.removeItem("reservations"); 
-    localStorage.removeItem("cancellations"); // Remove cancellations from localStorage
+    localStorage.removeItem("cancellations"); 
   };
 
- 
+  const handleSaveEdit = (index, updatedReservation) => {
+    setReservations((prev) => {
+      const newReservations = [...prev];
+      newReservations[index] = updatedReservation;
+      return newReservations;
+    });
+    setEditingIndex(null); // Exit edit mode after saving
+  };
+
+  const filteredReservations = selectedDate
+    ? reservations.filter((reservation) => reservation.day === selectedDate)
+    : reservations;
 
   return (
     <>
       <button onClick={handleClearAll}>Clear All Reservations</button>
 
       <div className="reservations">
-        <ul className="reserved__days">
-          <li><button>1 Today</button></li>
-          <li><button>2 Tomorrow</button></li>
-          <li><button>3 Wednesday</button></li>
-        </ul>
+        
+        <label htmlFor="dateFilter">Filter by Date:</label>
+        <input
+          type="date"
+          id="dateFilter"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
+
         <div className="reservations__reserved">
           <button onClick={() => setShowForm((prev) => !prev)}>+</button>
           {showForm && <RegisterForm setReservations={setReservations} />}
@@ -76,23 +96,53 @@ function Reservations() {
                 </div>
               </li>
 
-              {reservations.map((reservation, index) => (
+              {filteredReservations.map((reservation, index) => (
                 <li key={index}>
                   <div className="cards__flex">
-                    <div>
-                      <p className="cards__flex__day">{reservation.day}</p>
-                      <p className="cards__flex__time">{reservation.time}</p>
-                    </div>
-                    <div>
-                      <p><strong>Name:</strong> {reservation.name}</p>
-                      <p><strong>Guests:</strong> {reservation.guests}</p>
-                      <p><strong>Details:</strong> {reservation.details}</p>
-                    </div>
-                    <div>
-                      <button>Arrived</button>
-                      <button onClick={() => handleCancel(index)}>Cancel</button>
-                      <button>Edit</button>
-                    </div>
+                    {editingIndex === index ? (
+                      <div>
+                        <input
+                          type="text"
+                          defaultValue={reservation.name}
+                          onChange={(e) => (reservation.name = e.target.value)}
+                        />
+                        <input
+                          type="number"
+                          defaultValue={reservation.guests}
+                          onChange={(e) => (reservation.guests = e.target.value)}
+                        />
+                        <input
+                          type="text"
+                          defaultValue={reservation.details}
+                          onChange={(e) => (reservation.details = e.target.value)}
+                        />
+                        <input
+                          type="date"
+                          defaultValue={reservation.day}
+                          onChange={(e) => (reservation.day = e.target.value)}
+                        />
+                        <input
+                          type="time"
+                          defaultValue={reservation.time}
+                          onChange={(e) => (reservation.time = e.target.value)}
+                        />
+                        <button onClick={() => handleSaveEdit(index, reservation)}>Save</button>
+                        <button onClick={() => setEditingIndex(null)}>Cancel</button>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="cards__flex__day">{reservation.day}</p>
+                        <p className="cards__flex__time">{reservation.time}</p>
+                        <p><strong>Name:</strong> {reservation.name}</p>
+                        <p><strong>Guests:</strong> {reservation.guests}</p>
+                        <p><strong>Details:</strong> {reservation.details}</p>
+                        <div>
+                          <button>Arrived</button>
+                          <button onClick={() => handleCancel(index)}>Cancel</button>
+                          <button onClick={() => setEditingIndex(index)}>Edit</button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </li>
               ))}

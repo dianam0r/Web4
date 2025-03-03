@@ -1,6 +1,6 @@
 // import { useState } from 'react'
 
-function Full_Menu() {
+function FullMenu() {
 
   return (
     <>
@@ -18,4 +18,4 @@ function Full_Menu() {
   )
 }
 
-export default Full_Menu
+export default FullMenu
