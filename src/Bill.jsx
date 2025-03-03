@@ -1,4 +1,12 @@
-function Bill({ tableNumber, orders }) { // ✅ Receive orders as a prop
+import { useState } from "react";
+
+function Bill({ tableNumber, orders, onPay }) { // ✅ Receive orders as a prop
+  const [discountApplied, setDiscountApplied] = useState(false); // ✅ Track if discount was applied
+
+  const totalBeforeDiscount = orders.reduce((sum, item) => sum + item.price, 0); // ✅ Calculate total before discount
+  const discountAmount = discountApplied ? totalBeforeDiscount * 0.3 : 0; // ✅ 30% discount if applied
+  const total = totalBeforeDiscount - discountAmount; // ✅ Final total
+
   return (
     <>
       <h3>Bill for Table {tableNumber}</h3>
@@ -6,15 +14,24 @@ function Bill({ tableNumber, orders }) { // ✅ Receive orders as a prop
         {orders.length > 0 ? (
           orders.map((item, index) => (
             <li key={index}>
-              <p>{item}</p> <p>Price</p>
+              <p>{item.name}</p> <p>{item.price}€</p> {/* ✅ Show item name & price */}
             </li>
           ))
         ) : (
           <li>No items ordered</li>
         )}
       </ul>
-      <button>Voucher</button>
-      <button>Pay</button>
+      <h4>Total: {totalBeforeDiscount.toFixed(2)}€</h4> {/* ✅ Show total before discount */}
+      {discountApplied && <h4>Discount: -{discountAmount.toFixed(2)}€</h4>} {/* ✅ Show discount if applied */}
+      <h4>Final Total: {total.toFixed(2)}€</h4> {/* ✅ Show final total after discount */}
+
+      <button
+        onClick={() => setDiscountApplied(true)}
+        disabled={discountApplied} // ✅ Disable button if already applied
+      >
+        Voucher (30% Off)
+      </button>
+      <button onClick={() => onPay(tableNumber)}>Pay</button> {/* ✅ Call handlePay */}
     </>
   );
 }
