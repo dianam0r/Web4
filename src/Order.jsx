@@ -1,30 +1,30 @@
 import { useState } from "react";
 import FullMenu from "./FullMenu.jsx";
 
-function Order({ tableNumber }) { // ✅ Receive the table number as a prop
+function Order({ tableNumber, addToBill }) { // ✅ Receive addToBill function
   const [showFullMenu, setShowFullMenu] = useState(false);
 
   return (
     <>
-      <h3>Order for Table {tableNumber}</h3> {/* ✅ Show table number */}
+      <h3>Order for Table {tableNumber}</h3>
       <ul>
-        <li>Entrees</li>
-        <li>Dish</li>
-        <li>Drinks</li>
+        <li onClick={() => addToBill(tableNumber, "Entrees")}>Entrees</li>
+        <li onClick={() => addToBill(tableNumber, "Dish")}>Dish</li>
+        <li onClick={() => addToBill(tableNumber, "Drinks")}>Drinks</li>
         <li>
           <button
             onClick={(e) => {
-              e.stopPropagation(); // Prevents <li> click from triggering
+              e.stopPropagation();
               setShowFullMenu(true);
             }}
           >
             Full Menu
           </button>
         </li>
-        <li>Soup</li>
-        <li>Extras</li>
-        <li>Joke</li>
-        <li>Desert</li>
+        <li onClick={() => addToBill(tableNumber, "Soup")}>Soup</li>
+        <li onClick={() => addToBill(tableNumber, "Extras")}>Extras</li>
+        <li onClick={() => addToBill(tableNumber, "Joke")}>Joke</li>
+        <li onClick={() => addToBill(tableNumber, "Dessert")}>Dessert</li>
       </ul>
       <div>Arrows</div>
       {showFullMenu && (

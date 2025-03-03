@@ -45,11 +45,15 @@ function Overview() {
         ))}
       </ul>
 
-      {/* Show <Order /> only when an "Order" button is clicked */}
-      {selectedOrderTable !== null && <Order tableNumber={selectedOrderTable} />}
+      {selectedOrderTable !== null && (
+        <Order tableNumber={selectedOrderTable} addToBill={handleAddToBill} />
+      )}
 
       {/* Show <Bill /> only when a "Bill" button is clicked */}
-      {selectedBillTable !== null && <Bill tableNumber={selectedBillTable} />}
+      {selectedBillTable !== null && (
+        <Bill tableNumber={selectedBillTable} orders={orders[selectedBillTable] || []} />
+      )}
+      
     </>
   );
 }
