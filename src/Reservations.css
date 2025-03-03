@@ -2,10 +2,10 @@
   display: grid;
   grid-column-gap: 2rem;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 11fr 3fr;
+  grid-template-rows: 1fr 1fr 33fr;
 }
 
-.reserved__days{
+.reservations__title{
   display: flex;
   grid-column: 1;
   grid-row: 1;
@@ -13,16 +13,28 @@
   justify-content: center;
 }
 
+.reservations__filter{
+  grid-column: 1;
+  grid-row: 2;
+}
+
 .reservations__reserved{
   grid-column: 1;
-    grid-row: 2;
+  grid-row: 3;
 }
 
-.reserved__cancellations_title{
+.reservations__cancellations_title{
   text-align: center;
+  grid-column: 2;
+  grid-row: 1/3;
 }
 
-.reserved__days>li::after {
+.reservations__cancellations{
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* .reserved__days>li::after {
   content: "/";
   margin-left: 1rem;
   margin-right: 1rem;
@@ -41,13 +53,24 @@
 .reserved__days li>button:hover {
   font-weight: bold;
   border: none;
+} */
+
+.reservations__reserved__ul{
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
 }
 
-.reserved__cards {
+.reserved__ul__cards {
   border: 0.1rem solid #8C2704;
   padding: 3rem;
   border-radius: 2rem;
   color: white;
+}
+
+.reserved__ul__cards__flex {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .cards__flex__time,
@@ -57,9 +80,4 @@ width: max-content;
 padding: 1rem;
 border-radius: 1rem;
 font-size: 4rem;
-}
-
-.cards__flex{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
 }

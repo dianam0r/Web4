@@ -55,7 +55,7 @@ function Reservations() {
       newReservations[index] = updatedReservation;
       return newReservations;
     });
-    setEditingIndex(null); // Exit edit mode after saving
+    setEditingIndex(null); 
   };
 
   const filteredReservations = selectedDate
@@ -67,23 +67,27 @@ function Reservations() {
       <button onClick={handleClearAll}>Clear All Reservations</button>
 
       <div className="reservations">
-        
-        <label htmlFor="dateFilter">Filter by Date:</label>
-        <input
-          type="date"
-          id="dateFilter"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        />
+
+        <p className="reservations__title">Reservations</p>
+
+        <div className="reservations__filter">
+          <label htmlFor="dateFilter">Filter by Date:</label>
+          <input
+            type="date"
+            id="dateFilter"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </div>
 
         <div className="reservations__reserved">
           <button onClick={() => setShowForm((prev) => !prev)}>+</button>
           {showForm && <RegisterForm setReservations={setReservations} />}
 
           {reservations.length >= 0 && (
-            <ul className="reserved__cards">
-              <li>
-                <div className="cards__flex">
+            <ul className="reservations__reserved__ul">
+              <li className="reserved__ul__cards">
+                <div className="reserved__ul__cards__flex">
                   <div>
                     <p className="cards__flex__day">2025-02-27</p>
                     <p className="cards__flex__time">20:00</p>
@@ -97,8 +101,8 @@ function Reservations() {
               </li>
 
               {filteredReservations.map((reservation, index) => (
-                <li key={index}>
-                  <div className="cards__flex">
+                <li className="reserved__ul__cards" key={index}>
+                  <div className="reserved__ul__cards__flex">
                     {editingIndex === index ? (
                       <div>
                         <input
@@ -150,12 +154,13 @@ function Reservations() {
           )}
         </div>
 
-        <p className="reserved__cancellations_title">Cancellations</p>
+        <p className="reservations__cancellations_title">Cancellations</p>
+
         <div className="reservations__cancellations">
-          <ul className="reserved__cards">
+          <ul className="reservations__reserved__ul">
             {cancellations.map((canceled, index) => (
-              <li key={index}>
-                <div className="cards__flex">
+              <li className="reserved__ul__cards" key={index}>
+                <div className="reserved__ul__cards__flex">
                   <div>
                     <p className="cards__flex__day">{canceled.day}</p>
                     <p className="cards__flex__time">{canceled.time}</p>
@@ -170,6 +175,7 @@ function Reservations() {
             ))}
           </ul>
         </div>
+
       </div>
     </>
   )

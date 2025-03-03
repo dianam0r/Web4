@@ -15,4 +15,12 @@ h1{
   text-align: center;
 }
 
+.hidden{
+  display: none;
+}
+
+body{
+  font-family: "League Spartan", serif;
+}
+
 
