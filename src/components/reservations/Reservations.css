@@ -28,7 +28,7 @@
   gap: 1rem;
 }
 
-.reservations__layout__filter input[type="date"] {
+.reserved__filter input[type="date"] {
   background-color: #F2D8C9;
   color: #8C2704;
   border: none;

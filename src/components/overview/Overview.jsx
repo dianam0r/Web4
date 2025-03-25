@@ -60,7 +60,11 @@ function Overview() {
     <>
       {
             focusedTable && (
-              <button onClick={() => setFocusedTable(null)}>Show All Tables</button>
+          <button onClick={() => {
+            setFocusedTable(null);
+            setSelectedOrderTable(null);
+            setSelectedBillTable(null);
+          }}>Show All Tables</button>
             )
         }
         <div className={`overview ${focusedTable ? 'overview_menu' : ''}`}>
@@ -100,7 +104,7 @@ function Overview() {
                           setFocusedTable(tableNumber);
                         }}
                       >
-                        Order
+                        Menu
                       </button>
                       <button
                         onClick={(e) => {
@@ -119,15 +123,22 @@ function Overview() {
             })}
           </ul>
 
+        {(selectedOrderTable !== null || selectedBillTable !== null) && (
           <div className="overview__menu">
             {selectedOrderTable !== null && (
               <Order tableNumber={selectedOrderTable} addToBill={handleAddToBill} />
             )}
 
             {selectedBillTable !== null && (
-              <Bill tableNumber={selectedBillTable} orders={orders[selectedBillTable] || []} onPay={handlePay} />
+              <Bill
+                tableNumber={selectedBillTable}
+                orders={orders[selectedBillTable] || []}
+                onPay={handlePay}
+              />
             )}
           </div>
+        )}
+
 
         </div>
     </>
