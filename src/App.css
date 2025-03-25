@@ -13,6 +13,7 @@
 
 h1{
   text-align: center;
+  width: min-content;
 }
 
 .hidden{
@@ -22,5 +23,22 @@ h1{
 body{
   font-family: "League Spartan", serif;
 }
+
+.main{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.general{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
 
 

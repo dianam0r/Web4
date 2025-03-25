@@ -86,30 +86,33 @@ function Reservations() {
           {reservations.length >= 0 && (
             <ul className="reservations__reserved__ul">
               <li className="reserved__ul__cards">
-                <div className="reserved__ul__cards__flex">
+                <div>
+                  
+                  <div className="cards__flex__time__header">
+                    <p className='cards__flex__time__header__name'><strong>Name:</strong> Melanie</p>
+                    <p className='cards__flex__time__header__guests'><strong>Guests:</strong> 4</p>
+                    <p className='cards__flex__time__header__details'><strong>Details:</strong> Brings 2 kids</p>
+                  </div>
                   <div>
                     <p className="cards__flex__day">2025-02-27</p>
                     <p className="cards__flex__time">20:00</p>
-                  </div>
-                  <div>
-                    <p><strong>Name:</strong> Melanie</p>
-                    <p><strong>Guests:</strong> 4</p>
-                    <p><strong>Details:</strong> Brings 2 kids</p>
                   </div>
                 </div>
               </li>
 
               {filteredReservations.map((reservation, index) => (
                 <li className="reserved__ul__cards" key={index}>
-                  <div className="reserved__ul__cards__flex">
+                  
                     {editingIndex === index ? (
                       <div>
                         <input
+                  
                           type="text"
                           defaultValue={reservation.name}
                           onChange={(e) => (reservation.name = e.target.value)}
                         />
                         <input
+                          
                           type="number"
                           defaultValue={reservation.guests}
                           onChange={(e) => (reservation.guests = e.target.value)}
@@ -134,19 +137,23 @@ function Reservations() {
                       </div>
                     ) : (
                       <div>
-                        <p className="cards__flex__day">{reservation.day}</p>
-                        <p className="cards__flex__time">{reservation.time}</p>
-                        <p><strong>Name:</strong> {reservation.name}</p>
-                        <p><strong>Guests:</strong> {reservation.guests}</p>
-                        <p><strong>Details:</strong> {reservation.details}</p>
-                        <div>
-                          <button>Arrived</button>
-                          <button onClick={() => handleCancel(index)}>Cancel</button>
-                          <button onClick={() => setEditingIndex(index)}>Edit</button>
+                        <div className="day_time">
+                          <p className="cards__flex__day">{reservation.day}</p>
+                          <p className="cards__flex__time">{reservation.time}</p>
                         </div>
+                        <div className="cards__flex__time__header">
+                          <p className="cards__flex__time__header__name"><strong>Name:</strong> {reservation.name}</p>
+                            <div className="cards__flex__time__header__buttons">
+                              <button onClick={() => handleCancel(index)}>Cancel</button>
+                              <button onClick={() => setEditingIndex(index)}>Edit</button>
+                            </div>
+                          <p className="cards__flex__time__header__guests"><strong>Guests:</strong> {reservation.guests}</p>
+                          <p className="cards__flex__time__header__details"><strong>Details:</strong> {reservation.details}</p>
+                        </div>
+                          
+                        
                       </div>
                     )}
-                  </div>
                 </li>
               ))}
             </ul>
@@ -158,11 +165,11 @@ function Reservations() {
         <div className="reservations__cancellations">
           <ul className="reservations__reserved__ul">
             {cancellations.map((canceled, index) => (
-              <li className="reserved__ul__cards" key={index}>
-                <div className="reserved__ul__cards__flex">
+              <li className="cancellation__ul__cards" key={index}>
+                <div className="cancellation__ul__cards__flex">
                   <div>
-                    <p className="cards__flex__day">{canceled.day}</p>
-                    <p className="cards__flex__time">{canceled.time}</p>
+                    <p className="cancelled__cards__flex__day">{canceled.day}</p>
+                    <p className="cancelled__cards__flex__time">{canceled.time}</p>
                   </div>
                   <div>
                     <p><strong>Name:</strong> {canceled.name}</p>

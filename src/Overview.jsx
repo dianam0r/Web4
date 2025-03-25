@@ -32,14 +32,15 @@ function Overview() {
 
   return (
     <>
+      <div className="overview">
       <h2>Overview</h2>
-      <ul>
-        {[...Array(7)].map((_, index) => {
+      <ul className="overview__ul">
+        {[...Array(6)].map((_, index) => {
           const tableNumber = index + 1;
           const isPaid = paidTables.includes(tableNumber); 
 
           return (
-            <li key={index}>
+            <li className="overview__ul__li" key={index}>
               Table {tableNumber}
 
               {isPaid ? (
@@ -70,6 +71,7 @@ function Overview() {
           );
         })}
       </ul>
+      </div>
 
       {selectedOrderTable !== null && (
         <Order tableNumber={selectedOrderTable} addToBill={handleAddToBill} />

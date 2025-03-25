@@ -3,6 +3,7 @@
   grid-column-gap: 2rem;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 33fr;
+  gap: 1rem;
 }
 
 .reservations__title{
@@ -13,9 +14,29 @@
   justify-content: center;
 }
 
-.reservations__filter{
+.reservations__filter {
   grid-column: 1;
   grid-row: 2;
+  color: #F2D8C9;
+  background-color:#8C2704;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: min-content;
+  width: max-content;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.reservations__filter input[type="date"] {
+  background-color: #F2D8C9;
+  color: #8C2704;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
 }
 
 .reservations__reserved{
@@ -61,23 +82,90 @@
   flex-direction: column;
 }
 
-.reserved__ul__cards {
-  border: 0.1rem solid #8C2704;
-  padding: 3rem;
+.cancellation__ul__cards{
+  padding: 1.5rem;
   border-radius: 2rem;
   color: white;
+  background-color: #8C2704;
+  transition: transform 0.3s ease-in-out;
+  border: 0.5rem solid #F2D8C9;
 }
 
-.reserved__ul__cards__flex {
+.cards__flex__time__header__buttons{
+display: flex;
+gap: 1rem;
+}
+
+.reserved__ul__cards {
+  border: 0.5rem solid #8C2704;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  color: white;
+  background-color: #F2D8C9;
+  transition: transform 0.3s ease-in-out;
+}
+
+.cancellation__ul__cards:hover,
+.reserved__ul__cards:hover {
+  animation: going-up 0.3s ease forwards;
+}
+
+@keyframes going-up {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.cancellation__ul__cards:nth-of-type(n+2){
+  margin-block-start: -40vh;
+}
+
+.reserved__ul__cards:nth-of-type(n+2) {
+  margin-block-start: -45vh;
+}
+
+
+
+/* .reserved__ul__cards__flex {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+} */
+
+.cards__flex__time__header{
+font-size: 1.5rem;
 }
 
+.cards__flex__time__header__name{
+  font-size: 2rem;
+}
+
+.cards__flex__time__header{
+  color:#8C2704;
+}
+.cancelled__cards__flex__day,
+.cancelled__cards__flex__time,
 .cards__flex__time,
 .cards__flex__day{
-background-color: #8C2704;
 width: max-content;
 padding: 1rem;
 border-radius: 1rem;
-font-size: 4rem;
+font-size: 1.2rem;
+}
+
+.cards__flex__time,
+.cards__flex__day {
+  color: #8C2704;
+}
+
+
+ .day_time {
+  display: flex;
+  justify-content: space-between;
+  height: 7vh; 
+  margin-block-start: -5vh;
+  margin-inline-start: -1vw;
 }

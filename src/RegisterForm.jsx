@@ -1,3 +1,4 @@
+import "./RegisterForm.css";
 function RegisterForm({ setReservations }) {
   const handleSubmit = (e) => {
     e.preventDefault();

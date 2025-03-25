@@ -1,0 +1,19 @@
+.reservation-form input {
+  background-color: #8C2704;
+  color: #F2D8C9;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.reservation-form label {
+  color: #8C2704;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  display: block;
+}

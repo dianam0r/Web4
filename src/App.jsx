@@ -17,25 +17,32 @@ function App() {
 
   return (
     <>
-      <h1>Restaurant Dashboard</h1>
-      <nav className="nav">
-        <h2 className="hidden">Main Navigation</h2>
-        <button onClick={() => setActiveSection('reservations')}>Reservations</button>
-        <button onClick={() => setActiveSection('overview')}>Overview</button>
-      </nav>
+    <div className='general'>
+      <div className="main">
+        <h1>Restaurant Dashboard</h1>
+        <nav className="nav">
+          <h2 className="hidden">Main Navigation</h2>
+          <button onClick={() => setActiveSection('reservations')}>Reservations</button>
+          <button onClick={() => setActiveSection('overview')}>Overview</button>
+        </nav>
+      </div>
 
-      {activeSection === 'reservations' && (
-        <Reservations
-          // name={reservationData.name}
-          // guests={reservationData.guests}
-          // details={reservationData.details}
-          // day={reservationData.day}
-          // time={reservationData.time}
-        />
-      )}
+      <div className="section">
+        {activeSection === 'reservations' && (
+          <Reservations
+            // name={reservationData.name}
+            // guests={reservationData.guests}
+            // details={reservationData.details}
+            // day={reservationData.day}
+            // time={reservationData.time}
+          />
+        )}
 
-      {activeSection === 'overview' && <Overview />}
+        {activeSection === 'overview' && <Overview />}
+        </div>
+      </div>
     </>
+    
   );
 }
 
