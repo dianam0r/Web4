@@ -15,3 +15,7 @@ If you are developing a production application, we recommend using TypeScript an
 Deploy
 Requirements
 catApi
+ask about localstorage useEffect
+ask handleClearAll in reservations is this the right way to do it in the array
+array tables overview
+reduce and to fixed in bill for the discount

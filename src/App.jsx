@@ -6,14 +6,14 @@ import Overview from './Overview.jsx'
 function App() {
   const [activeSection, setActiveSection] = useState('reservations');
 
-  // ✅ Store reservation data in state
-  const [reservationData, setReservationData] = useState({
-    name: '',
-    guests: '',
-    details: '',
-    day: '',
-    time: ''
-  });
+  // const [reservationData, setReservationData] = useState({
+  //   // is this the right way to put it? and setReservation not yet
+  //   name: '',
+  //   guests: '',
+  //   details: '',
+  //   day: '',
+  //   time: ''
+  // });
 
   return (
     <>
@@ -26,11 +26,11 @@ function App() {
 
       {activeSection === 'reservations' && (
         <Reservations
-          name={reservationData.name}
-          guests={reservationData.guests}
-          details={reservationData.details}
-          day={reservationData.day}
-          time={reservationData.time}
+          // name={reservationData.name}
+          // guests={reservationData.guests}
+          // details={reservationData.details}
+          // day={reservationData.day}
+          // time={reservationData.time}
         />
       )}
 

@@ -41,7 +41,6 @@ function Reservations() {
     });
   };
 
-
   const handleClearAll = () => {
     setReservations([]); 
     setCancellations([]); 

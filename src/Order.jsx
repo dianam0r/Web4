@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FullMenu from "./FullMenu.jsx";
 
-function Order({ tableNumber, addToBill }) { // ✅ Receive addToBill function
+function Order({ tableNumber, addToBill }) {
   const [showFullMenu, setShowFullMenu] = useState(false);
 
   return (
