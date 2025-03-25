@@ -40,5 +40,20 @@ body{
   grid-template-rows: 1fr;
 }
 
+button {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
 
+button:hover {
+  transform: scale(1.1);
+}
 
+button:active {
+  background-color: #8C2704;
+  color: #F2D8C9;
+}
+
+button:focus {
+  outline: 2px solid #8C2704;
+  outline-offset: 2px;
+}

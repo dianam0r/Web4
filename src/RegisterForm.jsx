@@ -32,7 +32,7 @@ function RegisterForm({ setReservations }) {
 
         <div className="inputGroup">
           <label htmlFor="guests">Guests</label>
-          <input type="number" id="guests" required />
+          <input type="number" id="guests" required max="25" />
         </div>
 
         <div className="inputGroup">

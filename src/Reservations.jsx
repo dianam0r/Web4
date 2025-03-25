@@ -80,7 +80,13 @@ function Reservations() {
         </div>
 
         <div className="reservations__reserved">
-          <button onClick={() => setShowForm((prev) => !prev)}>+</button>
+          <button
+            className="reservations__reserved__plus"
+            onClick={() => setShowForm((prev) => !prev)}
+          >
+            {showForm ? '−' : '+'}
+          </button>
+
           {showForm && <RegisterForm setReservations={setReservations} />}
 
           {reservations.length >= 0 && (
@@ -163,7 +169,7 @@ function Reservations() {
         <p className="reservations__cancellations_title">Cancellations</p>
 
         <div className="reservations__cancellations">
-          <ul className="reservations__reserved__ul">
+          <ul className="cancellations__reserved__ul">
             {cancellations.map((canceled, index) => (
               <li className="cancellation__ul__cards" key={index}>
                 <div className="cancellation__ul__cards__flex">

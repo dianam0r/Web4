@@ -8,6 +8,7 @@ function Overview() {
   const [selectedBillTable, setSelectedBillTable] = useState(null);
   const [orders, setOrders] = useState({});
   const [paidTables, setPaidTables] = useState([]); 
+  const [focusedTable, setFocusedTable] = useState(null);
 
   const handleAddToBill = (tableNumber, item, price) => {
     setOrders((prevOrders) => ({
@@ -32,54 +33,72 @@ function Overview() {
 
   return (
     <>
-      <div className="overview">
-      <h2>Overview</h2>
-      <ul className="overview__ul">
-        {[...Array(6)].map((_, index) => {
-          const tableNumber = index + 1;
-          const isPaid = paidTables.includes(tableNumber); 
+    <div className="overview__layout">
+      {
+            focusedTable && (
+              <button onClick={() => setFocusedTable(null)}>Show All Tables</button>
+            )
+          }
+        <div className={`overview ${focusedTable ? 'overview_menu' : ''}`}>
+          {!focusedTable && <h2>Overview</h2>}
 
-          return (
-            <li className="overview__ul__li" key={index}>
-              Table {tableNumber}
+          
+          <ul className="overview__ul">
+            {[...Array(6)].map((_, index) => {
+              const tableNumber = index + 1;
+              const isPaid = paidTables.includes(tableNumber);
 
-              {isPaid ? (
-                <button onClick={() => handleActivate(tableNumber)}>Activate</button> 
-              ) : (
-                <>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedOrderTable(tableNumber);
-                      setSelectedBillTable(null);
-                    }}
-                  >
-                    Order
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedBillTable(tableNumber);
-                      setSelectedOrderTable(null);
-                    }}
-                  >
-                    Bill
-                  </button>
-                </>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+              if (focusedTable && focusedTable !== tableNumber) {
+                return null;
+              }
+
+              return (
+                <li className="overview__ul__li" key={index}>
+                  Table {tableNumber}
+
+                  {isPaid ? (
+                    <button onClick={() => handleActivate(tableNumber)}>Activate</button>
+                  ) : (
+                    <>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedOrderTable(tableNumber);
+                          setSelectedBillTable(null);
+                          setFocusedTable(tableNumber);
+                        }}
+                      >
+                        Order
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedBillTable(tableNumber);
+                          setSelectedOrderTable(null);
+                          setFocusedTable(tableNumber); 
+                        }}
+                      >
+                        Bill
+                      </button>
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="order">
+            {selectedOrderTable !== null && (
+              <Order tableNumber={selectedOrderTable} addToBill={handleAddToBill} />
+            )}
+
+            {selectedBillTable !== null && (
+              <Bill tableNumber={selectedBillTable} orders={orders[selectedBillTable] || []} onPay={handlePay} />
+            )}
+          </div>
+
       </div>
-
-      {selectedOrderTable !== null && (
-        <Order tableNumber={selectedOrderTable} addToBill={handleAddToBill} />
-      )}
-
-      {selectedBillTable !== null && (
-        <Bill tableNumber={selectedBillTable} orders={orders[selectedBillTable] || []} onPay={handlePay} />
-      )}
+    </div>
     </>
   );
 }

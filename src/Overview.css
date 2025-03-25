@@ -20,6 +20,14 @@ grid-template-rows: 1fr 1fr;
 gap: 1rem;
 }
 
+
+.order {
+    border: 2px solid #8C2704;
+    border-radius: 2rem;
+    padding: 2rem;
+    grid-column: 2;
+}
+
 .overview__ul__li{
     height: 30vh;
     width: 30vh;
@@ -65,4 +73,12 @@ gap: 1rem;
     grid-column: 1;
     grid-row: 2;
     align-self: start;
+}
+
+.overview__layout{
+    display: grid;
+}
+
+.overview_menu{
+    grid-template-columns: 1fr 1fr;
 }
