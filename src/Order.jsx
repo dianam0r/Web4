@@ -85,15 +85,27 @@ function Order({ tableNumber, addToBill }) {
 
           <li>
             <p><span>Joke</span><span>-1€ (Discount)</span></p>
-            <button onClick={() => {
-              addToBill(tableNumber, "Joke", -1);
-              setItemCounts((prev) => ({
-                ...prev,
-                Joke: (prev.Joke || 0) + 1,
-              }));
-            }}>+</button>
+            <button
+              disabled={(itemCounts["Joke"] || 0) >= 2}
+              onClick={() => {
+                const currentJokes = itemCounts["Joke"] || 0;
+                if (currentJokes >= 2) {
+                  alert("Max 2 jokes per table! That's enough laughter.");
+                  return;
+                }
+
+                addToBill(tableNumber, "Joke", -1);
+                setItemCounts((prev) => ({
+                  ...prev,
+                  Joke: currentJokes + 1,
+                }));
+              }}
+            >
+              +
+            </button>
             <p>{itemCounts["Joke"] || 0}</p>
           </li>
+
 
           <li>
             <p><span>Dessert</span><span>2€</span></p>

@@ -3,7 +3,7 @@ import RegisterForm from './RegisterForm.jsx'
 import { useState, useEffect } from "react";
 
 
-function Reservations() {
+function Reservations({ setActiveSection }) {
 
   const [showForm, setShowForm] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
@@ -66,18 +66,9 @@ function Reservations() {
       <button onClick={handleClearAll}>Clear All Reservations</button>
 
       <div className="reservations">
-
         <p className="reservations__title">Reservations</p>
 
-        <div className="reservations__filter">
-          <label htmlFor="dateFilter">Filter by Date:</label>
-          <input
-            type="date"
-            id="dateFilter"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </div>
+        {/* ... filter input ... */}
 
         <div className="reservations__reserved">
           <button
@@ -91,75 +82,44 @@ function Reservations() {
 
           {reservations.length >= 0 && (
             <ul className="reservations__reserved__ul">
-              <li className="reserved__ul__cards">
-                <div>
-                  
-                  <div className="cards__flex__time__header">
-                    <p className='cards__flex__time__header__name'><strong>Name:</strong> Melanie</p>
-                    <p className='cards__flex__time__header__guests'><strong>Guests:</strong> 4</p>
-                    <p className='cards__flex__time__header__details'><strong>Details:</strong> Brings 2 kids</p>
-                  </div>
-                  <div>
-                    <p className="cards__flex__day">2025-02-27</p>
-                    <p className="cards__flex__time">20:00</p>
-                  </div>
-                </div>
+              {/* Hardcoded reservation for Melanie */}
+              <li
+                className="reserved__ul__cards"
+                draggable
+                onDrag={() => setActiveSection('overview')}
+              >
+                {/* card content here */}
               </li>
 
+              {/* Dynamic reservations */}
               {filteredReservations.map((reservation, index) => (
-                <li className="reserved__ul__cards" key={index}>
-                  
-                    {editingIndex === index ? (
-                      <div>
-                        <input
-                  
-                          type="text"
-                          defaultValue={reservation.name}
-                          onChange={(e) => (reservation.name = e.target.value)}
-                        />
-                        <input
-                          
-                          type="number"
-                          defaultValue={reservation.guests}
-                          onChange={(e) => (reservation.guests = e.target.value)}
-                        />
-                        <input
-                          type="text"
-                          defaultValue={reservation.details}
-                          onChange={(e) => (reservation.details = e.target.value)}
-                        />
-                        <input
-                          type="date"
-                          defaultValue={reservation.day}
-                          onChange={(e) => (reservation.day = e.target.value)}
-                        />
-                        <input
-                          type="time"
-                          defaultValue={reservation.time}
-                          onChange={(e) => (reservation.time = e.target.value)}
-                        />
-                        <button onClick={() => handleSaveEdit(index, reservation)}>Save</button>
-                        <button onClick={() => setEditingIndex(null)}>Cancel</button>
+                <li
+                  className="reserved__ul__cards"
+                  key={index}
+                  draggable
+                  onDrag={() => setActiveSection('overview')}
+                >
+                  {editingIndex === index ? (
+                    // editing form...
+                    <div> {/* form inputs */} </div>
+                  ) : (
+                    // static reservation display...
+                    <div>
+                      <div className="day_time">
+                        <p className="cards__flex__day">{reservation.day}</p>
+                        <p className="cards__flex__time">{reservation.time}</p>
                       </div>
-                    ) : (
-                      <div>
-                        <div className="day_time">
-                          <p className="cards__flex__day">{reservation.day}</p>
-                          <p className="cards__flex__time">{reservation.time}</p>
+                      <div className="cards__flex__time__header">
+                        <p className="cards__flex__time__header__name"><strong>Name:</strong> {reservation.name}</p>
+                        <div className="cards__flex__time__header__buttons">
+                          <button onClick={() => handleCancel(index)}>Cancel</button>
+                          <button onClick={() => setEditingIndex(index)}>Edit</button>
                         </div>
-                        <div className="cards__flex__time__header">
-                          <p className="cards__flex__time__header__name"><strong>Name:</strong> {reservation.name}</p>
-                            <div className="cards__flex__time__header__buttons">
-                              <button onClick={() => handleCancel(index)}>Cancel</button>
-                              <button onClick={() => setEditingIndex(index)}>Edit</button>
-                            </div>
-                          <p className="cards__flex__time__header__guests"><strong>Guests:</strong> {reservation.guests}</p>
-                          <p className="cards__flex__time__header__details"><strong>Details:</strong> {reservation.details}</p>
-                        </div>
-                          
-                        
+                        <p className="cards__flex__time__header__guests"><strong>Guests:</strong> {reservation.guests}</p>
+                        <p className="cards__flex__time__header__details"><strong>Details:</strong> {reservation.details}</p>
                       </div>
-                    )}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

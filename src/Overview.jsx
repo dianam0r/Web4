@@ -7,7 +7,15 @@ function Overview() {
   const [selectedOrderTable, setSelectedOrderTable] = useState(null);
   const [selectedBillTable, setSelectedBillTable] = useState(null);
   const [orders, setOrders] = useState({});
-  const [paidTables, setPaidTables] = useState([]); 
+  const getRandomPaidTables = () => {
+    const tableCount = 6;
+    const randomCount = Math.floor(Math.random() * tableCount) + 1;
+    const shuffled = [...Array(tableCount)].map((_, i) => i + 1).sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, randomCount);
+  };
+
+  const [paidTables, setPaidTables] = useState(getRandomPaidTables);
+
   const [focusedTable, setFocusedTable] = useState(null);
 
   const handleAddToBill = (tableNumber, item, price) => {

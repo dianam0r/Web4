@@ -5,7 +5,7 @@ function RegisterForm({ setReservations }) {
 
     const newReservation = {
       name: e.target.name.value,
-      guests: parseInt(e.target.guests.value, 10) || "",
+      guests: guests,
       details: e.target.details.value,
       day: e.target.day.value,
       time: e.target.time.value,
@@ -18,6 +18,13 @@ function RegisterForm({ setReservations }) {
     );
 
     e.target.reset();
+
+    const guests = parseInt(e.target.guests.value, 10);
+
+    if (isNaN(guests) || guests < 1 || guests > 25) {
+      alert("Please enter a valid number of guests (1 to 25).");
+      return;
+    }
   };
 
   return (
@@ -31,7 +38,7 @@ function RegisterForm({ setReservations }) {
         </div>
 
         <div className="inputGroup">
-          <label htmlFor="guests">Guests</label>
+          <label htmlFor="guests">Guests (max 25)</label>
           <input type="number" id="guests" required max="25" />
         </div>
 

@@ -57,3 +57,10 @@ button:focus {
   outline: 2px solid #8C2704;
   outline-offset: 2px;
 }
+
+.joke_feature{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+      justify-content: center;
+}
