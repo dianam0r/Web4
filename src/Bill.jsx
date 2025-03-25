@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-function Bill({ tableNumber, orders, onPay }) { // ✅ Receive orders as a prop
-  const [discountApplied, setDiscountApplied] = useState(false); // ✅ Track if discount was applied
+function Bill({ tableNumber, orders, onPay }) { 
+  const [discountApplied, setDiscountApplied] = useState(false); 
 
   const totalBeforeDiscount = orders.reduce((sum, item) => sum + item.price, 0); // ✅ Calculate total before discount
   const discountAmount = discountApplied ? totalBeforeDiscount * 0.3 : 0; // ✅ 30% discount if applied
@@ -27,7 +27,7 @@ function Bill({ tableNumber, orders, onPay }) { // ✅ Receive orders as a prop
 
       <button
         onClick={() => setDiscountApplied(true)}
-        disabled={discountApplied} // ✅ Disable button if already applied
+        disabled={discountApplied} 
       >
         Voucher (30% Off)
       </button>
