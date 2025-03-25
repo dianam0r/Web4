@@ -64,3 +64,9 @@ button:focus {
   height: 100vh;
       justify-content: center;
 }
+
+.reserved__ul__cards {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}

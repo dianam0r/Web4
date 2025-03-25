@@ -14,9 +14,26 @@ function Overview() {
     return shuffled.slice(0, randomCount);
   };
 
+  const [tableAssignments, setTableAssignments] = useState({});
+
+
   const [paidTables, setPaidTables] = useState(getRandomPaidTables);
 
   const [focusedTable, setFocusedTable] = useState(null);
+
+  // const handleDrop = (e, tableNumber) => {
+  //   e.preventDefault();
+  //   const name = e.dataTransfer.getData("text/plain");
+
+  //   if (name) {
+  //     setTableAssignments((prev) => ({
+  //       ...prev,
+  //       [tableNumber]: name,
+  //     }));
+  //   }
+  // };
+
+
 
   const handleAddToBill = (tableNumber, item, price) => {
     setOrders((prevOrders) => ({
@@ -61,8 +78,17 @@ function Overview() {
               }
 
               return (
-                <li className="overview__ul__li" key={index}>
+                <li
+                  className="overview__ul__li"
+                  key={index}
+                  // onDragOver={(e) => e.preventDefault()}
+                  // onDrop={(e) => handleDrop(e, tableNumber)}
+                >
+
                   Table {tableNumber}
+                  {tableAssignments[tableNumber] && (
+                    <p><strong>Reserved for:</strong> {tableAssignments[tableNumber]}</p>
+                  )}
 
                   {isPaid ? (
                     <button onClick={() => handleActivate(tableNumber)}>Activate</button>

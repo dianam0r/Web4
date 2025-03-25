@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FullMenu from "./FullMenu.jsx";
+import FullMenu from "./FullMenu";
 import "./Order.css";
 
 function Order({ tableNumber, addToBill }) {

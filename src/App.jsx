@@ -1,7 +1,7 @@
 import './App.css'
 import { useState } from 'react';
-import Reservations from './Reservations.jsx'
-import Overview from './Overview.jsx'
+import Reservations from './components/reservations/Reservations.jsx'
+import Overview from './components/overview/Overview.jsx'
 
 function App() {
   const [activeSection, setActiveSection] = useState('reservations');

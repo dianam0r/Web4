@@ -1,5 +1,5 @@
 import './Reservations.css'
-import RegisterForm from './RegisterForm.jsx'
+import RegisterForm from './RegisterForm'
 import { useState, useEffect } from "react";
 
 
@@ -94,10 +94,17 @@ function Reservations({ setActiveSection }) {
               {/* Dynamic reservations */}
               {filteredReservations.map((reservation, index) => (
                 <li
+                draggable="true"
                   className="reserved__ul__cards"
                   key={index}
-                  draggable
-                  onDrag={() => setActiveSection('overview')}
+                  // onDrag={(e) => {
+                  //   console.log("Dragging reservation:", reservation.name); 
+                  //   e.dataTransfer.setData("text/plain", reservation.name);
+                  //   setActiveSection('overview');
+                  // }}
+                
+
+
                 >
                   {editingIndex === index ? (
                     // editing form...
