@@ -48,14 +48,14 @@ function Reservations({ setActiveSection }) {
     localStorage.removeItem("cancellations"); 
   };
 
-  const handleSaveEdit = (index, updatedReservation) => {
-    setReservations((prev) => {
-      const newReservations = [...prev];
-      newReservations[index] = updatedReservation;
-      return newReservations;
-    });
-    setEditingIndex(null); 
-  };
+  // const handleSaveEdit = (index, updatedReservation) => {
+  //   setReservations((prev) => {
+  //     const newReservations = [...prev];
+  //     newReservations[index] = updatedReservation;
+  //     return newReservations;
+  //   });
+  //   setEditingIndex(null); 
+  // };
 
   const filteredReservations = selectedDate
     ? reservations.filter((reservation) => reservation.day === selectedDate)
