@@ -1,4 +1,4 @@
-.reservation-form input {
+.reservations__layout__reserved__form input {
   background-color: #8C2704;
   color: #F2D8C9;
   border: none;
@@ -11,7 +11,7 @@
   outline: none;
 }
 
-.reservation-form label {
+.reservations__layout__reserved__form label {
   color: #8C2704;
   font-weight: bold;
   margin-bottom: 0.25rem;

@@ -8,23 +8,29 @@ function App() {
 
   return (
     <>
-      <div className='general'>
-        <div className="main">
-          <h1>Restaurant Dashboard</h1>
-          <nav className="nav">
-            <h2 className="hidden">Main Navigation</h2>
+      <div className='dashboard'>
+        <div className="dashboard__menu">
+          <h1 className="dashboard__menu__title">Restaurant Dashboard</h1>
+          <nav className="dashboard__menu__nav">
+            <h2 className="dashboard__menu__nav__title hidden">Main Navigation</h2>
             <button onClick={() => setActiveSection('reservations')}>Reservations</button>
             <button onClick={() => setActiveSection('overview')}>Overview</button>
             <button onClick={() => setActiveSection('joke')}>New Feature!</button>
           </nav>
         </div>
 
-        <div className="section">
-          {activeSection === 'reservations' && <Reservations setActiveSection={setActiveSection} />}
-          {activeSection === 'overview' && <Overview />}
+          {activeSection === 'reservations' && (
+          <article className="dashboard__reservations">
+            <h3 className='hidden'>Reservations</h3>
+            <Reservations setActiveSection={setActiveSection} />
+            </article>)}
+          {activeSection === 'overview' && (
+          <article className="dashboard__overview">
+            <Overview />
+          </article>)}
           {activeSection === 'joke' && (
-            <div className="joke_feature">
-              <h2>🎤 Joke of the Day Discount</h2>
+            <section className="dashboard__section__joke">
+              <h3>🎤 Joke of the Day Discount</h3>
               <p>
                 Add some laughter to the menu! If a customer calls in and shares a holiday-themed joke.
                 Think Christmas, Halloween, Thanksgiving, or any seasonal celebration — they’ll receive a
@@ -32,9 +38,8 @@ function App() {
                 restaurant, bringing smiles to other guests too. It’s a tasty way to reward humor and create
                 a fun, memorable dining experience.
               </p>
-            </div>
+            </section>
           )}
-        </div>
       </div>
     </>
   );

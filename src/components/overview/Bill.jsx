@@ -9,7 +9,7 @@ function Bill({ tableNumber, orders, onPay }) {
 
   return (
     <>
-      <h3>Bill for Table {tableNumber}</h3>
+      <h4>Bill for Table {tableNumber}</h4>
       <ul>
         {orders.length > 0 ? (
           orders.map((item, index) => (
@@ -21,9 +21,9 @@ function Bill({ tableNumber, orders, onPay }) {
           <li>No items ordered</li>
         )}
       </ul>
-      <h4>Total: {totalBeforeDiscount.toFixed(2)}€</h4>
-      {discountApplied && <h4>Discount: -{discountAmount.toFixed(2)}€</h4>}
-      <h4>Final Total: {total.toFixed(2)}€</h4> 
+      <p>Total: {totalBeforeDiscount.toFixed(2)}€</p>
+      {discountApplied && <p>Discount: -{discountAmount.toFixed(2)}€</p>}
+      <p>Final Total: {total.toFixed(2)}€</p> 
 
       <button
         onClick={() => setDiscountApplied(true)}

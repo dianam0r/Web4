@@ -58,16 +58,14 @@ function Overview() {
 
   return (
     <>
-    <div className="overview__layout">
       {
             focusedTable && (
               <button onClick={() => setFocusedTable(null)}>Show All Tables</button>
             )
-          }
+        }
         <div className={`overview ${focusedTable ? 'overview_menu' : ''}`}>
-          {!focusedTable && <h2>Overview</h2>}
+          {!focusedTable && <h3>Overview</h3>}
 
-          
           <ul className="overview__ul">
             {[...Array(6)].map((_, index) => {
               const tableNumber = index + 1;
@@ -121,7 +119,7 @@ function Overview() {
             })}
           </ul>
 
-          <div className="order">
+          <div className="overview__menu">
             {selectedOrderTable !== null && (
               <Order tableNumber={selectedOrderTable} addToBill={handleAddToBill} />
             )}
@@ -131,8 +129,7 @@ function Overview() {
             )}
           </div>
 
-      </div>
-    </div>
+        </div>
     </>
   );
 }

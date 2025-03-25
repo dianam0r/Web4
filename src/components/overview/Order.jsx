@@ -1,5 +1,4 @@
 import { useState } from "react";
-import FullMenu from "./FullMenu";
 import "./Order.css";
 
 function Order({ tableNumber, addToBill }) {
@@ -8,10 +7,11 @@ function Order({ tableNumber, addToBill }) {
 
 
   return (
+    // overview__menu
     <>
     <div>
-      <h3>Order for Table {tableNumber}</h3>
-        <ul className="menu_list">
+      <h4>Order for Table {tableNumber}</h4>
+        <ul className="overview__menu__list">
           <li>
             <p><span>Entrees</span><span>3€</span></p>
             <button onClick={() => {
@@ -49,14 +49,6 @@ function Order({ tableNumber, addToBill }) {
           </li>
 
           <li>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowFullMenu(true);
-              }}
-            >
-              Full Menu
-            </button>
           </li>
 
           <li>

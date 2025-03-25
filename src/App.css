@@ -4,7 +4,7 @@
   padding: 2rem;
 }
 
-.nav{
+.dashboard__menu__nav{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@ body{
   font-family: "League Spartan", serif;
 }
 
-.main{
+.dashboard__menu{
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ body{
   grid-row: 1;
 }
 
-.general{
+.dashboard{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
@@ -58,7 +58,7 @@ button:focus {
   outline-offset: 2px;
 }
 
-.joke_feature{
+.dashboard__section__joke{
   display: flex;
   flex-direction: column;
   height: 100vh;
