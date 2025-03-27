@@ -48,11 +48,13 @@
   grid-row: 3;
   display: flex;
   flex-direction: column;
-  gap: 1vw;
+  gap: 2vh;
+  width: 30vw;
 }
 
 .reservations__reserved__plus{
   font-size: 3rem;
+  margin-block-end: 5vh;
 }
 
 .cancellations__title{
@@ -89,6 +91,7 @@
 .cards__header__buttons{
 display: flex;
 gap: 1rem;
+flex-wrap: wrap;
 }
 
 .reserved__ul__cards {
