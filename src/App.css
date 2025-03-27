@@ -70,8 +70,8 @@ button:focus {
 .dashboard__section__joke{
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
+  width: 30vw;
 }
 
 
