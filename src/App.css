@@ -1,14 +1,17 @@
+:root{
+  --primary-color:#8C2704;
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2vw;
 }
 
 .dashboard__menu__nav{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 2vw;
 }
 
 h1{
@@ -49,21 +52,25 @@ button:hover {
   transform: scale(1.1);
 }
 
+.strong{
+  font-weight: bold;
+}
+
 button:active {
-  background-color: #8C2704;
+  background-color: var(--primary-color);
   color: #F2D8C9;
 }
 
 button:focus {
-  outline: 2px solid #8C2704;
-  outline-offset: 2px;
+  outline: 0.2rem solid var(--primary-color);
+  outline-offset: 0.2rem;
 }
 
 .dashboard__section__joke{
   display: flex;
   flex-direction: column;
   height: 100vh;
-      justify-content: center;
+  justify-content: center;
 }
 
 
@@ -77,4 +84,8 @@ button:focus {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+::placeholder{
+  color: #f2d8c965;
 }

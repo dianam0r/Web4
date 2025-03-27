@@ -3,10 +3,17 @@ import Order from "./Order.jsx";
 import Bill from "./Bill.jsx";
 import "./Overview.css";
 
-function Overview({ incomingReservation, setIncomingReservation }) {
+function Overview({ incomingReservation, setIncomingReservation, setJokes, setThemes }) {
   const [selectedOrderTable, setSelectedOrderTable] = useState(null);
   const [selectedBillTable, setSelectedBillTable] = useState(null);
   const [orders, setOrders] = useState({});
+  const [tableAssignments, setTableAssignments] = useState(() => {
+    const savedAssignments = localStorage.getItem("tableAssignments");
+    return savedAssignments ? JSON.parse(savedAssignments) : {};
+  });
+  const [paidTables, setPaidTables] = useState(getRandomPaidTables);
+  const [focusedTable, setFocusedTable] = useState(null);
+
   const getRandomPaidTables = () => {
     const tableCount = 6;
     const randomCount = Math.floor(Math.random() * tableCount) + 1;
@@ -24,21 +31,9 @@ function Overview({ incomingReservation, setIncomingReservation }) {
     setFocusedTable(tableNumber);
   };
 
-
-
-  const [tableAssignments, setTableAssignments] = useState(() => {
-    const savedAssignments = localStorage.getItem("tableAssignments");
-    return savedAssignments ? JSON.parse(savedAssignments) : {};
-  });
-
   useEffect(() => {
     localStorage.setItem("tableAssignments", JSON.stringify(tableAssignments));
   }, [tableAssignments]);
-
-
-  const [paidTables, setPaidTables] = useState(getRandomPaidTables);
-
-  const [focusedTable, setFocusedTable] = useState(null);
 
   const handleAddToBill = (tableNumber, item, price) => {
     setOrders((prevOrders) => ({
@@ -63,9 +58,9 @@ function Overview({ incomingReservation, setIncomingReservation }) {
     setPaidTables((prev) => prev.filter((table) => table !== tableNumber));
 
     setTableAssignments((prevAssignments) => {
-      const updated = { ...prevAssignments };
-      delete updated[tableNumber];
-      return updated;
+      const assignmentsUpdated = { ...prevAssignments };
+      delete assignmentsUpdated[tableNumber];
+      return assignmentsUpdated;
     });
 
     setOrders((prevOrders) => {
@@ -74,7 +69,6 @@ function Overview({ incomingReservation, setIncomingReservation }) {
       return updatedOrders;
     });
   };
-
 
   const handleDropReservation = (tableNumber) => {
     if (incomingReservation) {
@@ -92,8 +86,6 @@ function Overview({ incomingReservation, setIncomingReservation }) {
       setIncomingReservation(null);
     }
   };
-
-
 
   return (
     <>
@@ -219,7 +211,11 @@ function Overview({ incomingReservation, setIncomingReservation }) {
                 addToBill={handleAddToBill}
                 goToTable={goToOrderTable}
                 currentOrder={orders[selectedOrderTable] || []}
+                setJokes={setJokes}
+                setThemes={setThemes}
               />
+
+
 
 
             )}

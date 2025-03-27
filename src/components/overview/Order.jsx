@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react"; 
 
-function Order({ tableNumber, addToBill, goToTable, currentOrder }) {
+function Order({ tableNumber, addToBill, goToTable, currentOrder, setJokes, setThemes }) {
 
   const jokeAlreadyInBill = currentOrder.some((item) => item.name === "Joke");
 
@@ -14,6 +14,8 @@ function Order({ tableNumber, addToBill, goToTable, currentOrder }) {
   const [jokeInput, setJokeInput] = useState("");
   const [jokeSubmitted, setJokeSubmitted] = useState(false);
   const [isLaughing, setIsLaughing] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [holiday, setHoliday] = useState("");
 
 
   useEffect(() => {
@@ -127,30 +129,73 @@ function Order({ tableNumber, addToBill, goToTable, currentOrder }) {
             </div>
 
             {itemCounts["Joke"] === 1 && !jokeSubmitted && (
-              <div className="menu__list__li__joke-form">
+              <form
+                className="menu__list__li__joke-form"
+                onSubmit={(e) => {
+                  e.preventDefault(); // prevent page reload
+
+                  addToBill(tableNumber, "Joke", -1);
+                  setJokeSubmitted(true);
+                  setIsLaughing(true);
+                  setTimeout(() => setIsLaughing(false), 600);
+                  setJokes((prev) => [...prev, jokeInput]);
+                  setThemes((prev) => [...prev, holiday]);
+                }}
+              >
                 <p>Submit your joke:</p>
+
                 <input
                   type="text"
                   placeholder="Type a joke or video link"
                   value={jokeInput}
+                  required
                   onChange={(e) => setJokeInput(e.target.value)}
                 />
-                <button
-                  onClick={() => {
-                    if (jokeInput.trim() === "") {
-                      alert("Please submit something funny or entertaining 😄");
-                      return;
-                    }
-                    addToBill(tableNumber, "Joke", -1);
-                    setJokeSubmitted(true);
-                    setIsLaughing(true);
 
-                    setTimeout(() => setIsLaughing(false), 600);
-                  }}
+                <label>Choose a holiday:</label>
+                <select
+                  id="holiday"
+                  value={holiday}
+                  required
+                  onChange={(e) => setHoliday(e.target.value)}
                 >
-                  Submit
-                </button>
-              </div>
+                  <option value="">-- Select a holiday --</option>
+                  <option value="Christmas">🎄 Christmas</option>
+                  <option value="Halloween">🎃 Halloween</option>
+                  <option value="Thanksgiving">🦃 Thanksgiving</option>
+                  <option value="Valentine's Day">❤️ Valentine's Day</option>
+                  <option value="New Year's Eve">🎆 New Year's Eve</option>
+                  <option value="Easter">🐣 Easter</option>
+                  <option value="April Fools">😜 April Fools</option>
+                  <option value="Other">✨ Other</option>
+                </select>
+
+                <input
+                  type="file"
+                  accept="audio/*,video/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const fileURL = URL.createObjectURL(file);
+                      setUploadedFile({ name: file.name, url: fileURL });
+                    }
+                  }}
+                />
+
+                <button type="submit">Submit</button>
+
+                {uploadedFile && (
+                  <a
+                    href={uploadedFile.url}
+                    download={uploadedFile.name}
+                    className="joke__download"
+                  >
+                    📥 Download your joke file: {uploadedFile.name}
+                  </a>
+                )}
+              </form>
+
+
             )}
 
             {jokeSubmitted && (

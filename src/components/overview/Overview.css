@@ -39,6 +39,7 @@ gap: 1rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    animation: tableEnter 0.4s ease-out;
 }
 
 .overview__ul__li__buttons{
@@ -124,11 +125,9 @@ margin-block-end: 1rem;
 .overview__menu__list__li__joke{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     border: 2px solid #8C2704;
     padding: 1rem;
     border-radius: 2rem;
-    margin: 1rem;
 }
 
 .bill__buttons{
@@ -176,5 +175,17 @@ margin-block-end: 1rem;
 
     100% {
         filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes tableEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }

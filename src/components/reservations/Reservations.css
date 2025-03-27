@@ -203,3 +203,19 @@ border: 0.5rem solid #8C2704;
   padding: 1.5rem;
   border-radius: 2rem;
  }
+
+ .cards{
+ animation: tableEnter 0.4s ease-out;
+}
+
+ @keyframes tableEnter {
+   0% {
+     opacity: 0;
+     transform: translateY(10px) scale(0.98);
+   }
+
+   100% {
+     opacity: 1;
+     transform: translateY(0) scale(1);
+   }
+ }

@@ -8,7 +8,7 @@ function Reservations({ setActiveSection, setIncomingReservation }) {
   const [showForm, setShowForm] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
-
+  
   const [reservations, setReservations] = useState(() => {
     const savedReservations = localStorage.getItem("reservations");
     return savedReservations ? JSON.parse(savedReservations) : [];
@@ -66,7 +66,7 @@ function Reservations({ setActiveSection, setIncomingReservation }) {
         <section className="reservations__layout__reserved">
           <h4 className="reserved__title">Reservations</h4>
           <div className="reserved__filter">
-            <label htmlFor="dateFilter">Filter by Date:</label>
+            <label >Filter by Date:</label>
             <input
               type="date"
               id="dateFilter"
@@ -84,11 +84,9 @@ function Reservations({ setActiveSection, setIncomingReservation }) {
           {showForm && <RegisterForm setReservations={setReservations} />}
 
           {reservations.length >= 0 && (
-            <ul className="reserved__ul">
+            <ul className="reserved__ul cards">
               <li
-                className="reserved__ul__cards"
-                draggable
-                onDrag={() => setActiveSection('overview')}
+                className="reserved__ul__cards default card"
               >
                 <div className="cards__times">
                   <p className="cards__times__day">2025-02-27</p>
@@ -175,7 +173,7 @@ function Reservations({ setActiveSection, setIncomingReservation }) {
 
         <section className="reservations__layout__cancellations">
           <h4 className="cancellations__title">Cancellations</h4>
-          <ul className="cancellations__ul">
+          <ul className="cancellations__ul cards">
             {cancellations.map((canceled, index) => (
               <li className="cancellation__ul__cards" key={index}>
                 <div className="cancellation__ul__cards__flex">
