@@ -1,8 +1,13 @@
+:root{
+  --primary-color: #8C2704;
+  --secondary-color: #F2D8C9;
+}
+
+
 .dashboard__reservations__layout{
-  display: grid;
-  grid-column-gap: 2rem;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
 }
 
 .reserved__title{
@@ -16,8 +21,8 @@
 .reserved__filter {
   grid-column: 1;
   grid-row: 2;
-  color: #F2D8C9;
-  background-color:#8C2704;
+  color: var(--secondary-color);
+  background-color:var(--primary-color);
   border-radius: 1rem;
   display: flex;
   justify-content: center;
@@ -29,8 +34,8 @@
 }
 
 .reserved__filter input[type="date"] {
-  background-color: #F2D8C9;
-  color: #8C2704;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   border: none;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
@@ -43,7 +48,7 @@
   grid-row: 3;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1vw;
 }
 
 .reservations__reserved__plus{
@@ -76,9 +81,9 @@
   padding: 1.5rem;
   border-radius: 2rem;
   color: white;
-  background-color: #8C2704;
+  background-color: var(--primary-color);
   transition: transform 0.3s ease-in-out;
-  border: 0.5rem solid #F2D8C9;
+  border: 0.5rem solid var(--secondary-color);
 }
 
 .cards__header__buttons{
@@ -87,11 +92,11 @@ gap: 1rem;
 }
 
 .reserved__ul__cards {
-  border: 0.5rem solid #8C2704;
+  border: 0.5rem solid var(--primary-color);
   padding: 1.5rem;
   border-radius: 2rem;
   color: white;
-  background-color: #F2D8C9;
+  background-color: var(--secondary-color);
   transition: transform 0.3s ease-in-out;
 }
 
@@ -106,7 +111,7 @@ gap: 1rem;
   }
 
   to {
-    transform: translateY(-10px);
+    transform: translateY(-5vh);
   }
 }
 
@@ -128,7 +133,7 @@ font-size: 1.5rem;
 }
 
 .cards__header{
-  color:#8C2704;
+  color:var(--primary-color);
 }
 .cancelled__cards__flex__day,
 .cancelled__cards__flex__time,
@@ -142,7 +147,7 @@ font-size: 1.2rem;
 
 .cards__times__time,
 .cards__times__day {
-  color: #8C2704;
+  color: var(--primary-color);
 }
 
 .cancellation__ul__cards__flex__times,
@@ -163,7 +168,7 @@ font-size: 1.2rem;
 
 input, select {
   background-color: #8c2604ac;
-  color: #F2D8C9;
+  color: var(--secondary-color);
   border: none;
   border-radius: 0.5rem;
   padding: 0.6rem 1rem;
@@ -176,11 +181,11 @@ input, select {
 }
 
 .reserved__filter label {
-  color: #F2D8C9;
+  color: var(--secondary-color);
 }
 
 label {
-  color: #8C2704;
+  color: var(--primary-color);
   font-weight: bold;
   margin-bottom: 0.25rem;
   display: block;
@@ -194,12 +199,11 @@ label {
    position: relative;
    z-index: 2;
    background-color: white;
-   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
    cursor: grabbing;
  }
 
  .reservations__layout__reserved__form {
-border: 0.5rem solid #8C2704;
+border: 0.5rem solid var(--primary-color);
   padding: 1.5rem;
   border-radius: 2rem;
  }
@@ -211,7 +215,7 @@ border: 0.5rem solid #8C2704;
  @keyframes tableEnter {
    0% {
      opacity: 0;
-     transform: translateY(10px) scale(0.98);
+     transform: translateY(5vh) scale(0.98);
    }
 
    100% {

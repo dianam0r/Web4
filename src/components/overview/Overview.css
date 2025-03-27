@@ -1,3 +1,8 @@
+:root {
+    --primary-color: #8C2704;
+    --secondary-color: #F2D8C9;
+}
+
 .overview{
 display: grid;
 grid-template-columns: 1fr;
@@ -11,8 +16,6 @@ align-items: center;
     grid-row: 1;
     
 }
-
-
  
 .overview__ul{
 display: grid;
@@ -24,7 +27,7 @@ gap: 1rem;
 
 
 .overview__menu {
-    border: 2px solid #8C2704;
+    border: 0.5rem solid var(--primary-color);
     border-radius: 2rem;
     padding: 2rem;
     grid-column: 2;
@@ -33,7 +36,7 @@ gap: 1rem;
 .overview__ul__li{
     height: 30vh;
     width: 30vh;
-    border: 0.5rem solid #8C2704;
+    border: 0.5rem solid var(--primary-color);
     border-radius: 10rem;
     display: flex;
     flex-direction: column;
@@ -44,7 +47,8 @@ gap: 1rem;
 
 .overview__ul__li__buttons{
     display: flex;
-    /* flex-direction: column; */
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
 }
 
@@ -125,9 +129,10 @@ margin-block-end: 1rem;
 .overview__menu__list__li__joke{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    border: 2px solid #8C2704;
+    border: 0.3rem solid var(--primary-color);
     padding: 1rem;
     border-radius: 2rem;
+    width: 20vw;
 }
 
 .bill__buttons{
@@ -146,17 +151,48 @@ margin-block-end: 1rem;
 }
 
 .overview__incoming{
-    border: 0.5rem solid #8C2704;
+    border: 0.5rem solid var(--primary-color);
     border-radius: 2rem;
     padding: 2rem;
     width: fit-content;
 }
 
-.laughing {
-    animation: rainbow-laugh 1s linear;
+.rainbow {
+    animation: rainbow 1s linear;
 }
 
-@keyframes rainbow-laugh {
+.buttons__media_container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: var(--secondary-color);
+    padding: 1rem;
+    border: 0.5rem solid var(--primary-color);
+    text-align: center;
+}
+
+.buttons__media_player {
+    max-width: 100%;
+    display: block;
+    margin-top: 1rem;
+}
+
+.buttons__media_close {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.order__arrows{
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+}
+
+@keyframes rainbow {
     0% {
         filter: hue-rotate(0deg);
     }
@@ -181,7 +217,7 @@ margin-block-end: 1rem;
 @keyframes tableEnter {
     0% {
         opacity: 0;
-        transform: translateY(10px) scale(0.98);
+        transform: translateY(5vh) scale(0.98);
     }
 
     100% {
@@ -189,3 +225,4 @@ margin-block-end: 1rem;
         transform: translateY(0) scale(1);
     }
 }
+

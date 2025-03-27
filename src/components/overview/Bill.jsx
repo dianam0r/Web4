@@ -6,7 +6,6 @@ function Bill({ tableNumber, orders, onPay }) {
   const totalBeforeDiscount = orders.reduce((sum, item) => sum + item.price, 0);
   const discountAmount = discountApplied ? totalBeforeDiscount * 0.3 : 0;
   const total = totalBeforeDiscount - discountAmount;
-
   const noItems = orders.length === 0;
 
   return (

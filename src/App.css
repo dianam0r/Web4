@@ -11,6 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 2vw;
 }
 
@@ -38,10 +39,10 @@ body{
 }
 
 .dashboard{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
   animation: fadeIn 0.4s ease-in forwards;
+  gap: 8vw;
+  flex-wrap: wrap;
 }
 
 button {
@@ -77,7 +78,7 @@ button:focus {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(5vw);
   }
 
   to {
@@ -87,5 +88,7 @@ button:focus {
 }
 
 ::placeholder{
-  color: #f2d8c965;
+  color: #f2d8c98b;
 }
+
+/* if width of the device is smaller than 740 then overview__ul is display flex flex direction column */

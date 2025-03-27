@@ -11,7 +11,9 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
     const savedAssignments = localStorage.getItem("tableAssignments");
     return savedAssignments ? JSON.parse(savedAssignments) : {};
   });
-  const [paidTables, setPaidTables] = useState(getRandomPaidTables);
+
+  const [uploadedJokes, setUploadedJokes] = useState({});
+  
   const [focusedTable, setFocusedTable] = useState(null);
 
   const getRandomPaidTables = () => {
@@ -20,6 +22,8 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
     const shuffled = [...Array(tableCount)].map((_, i) => i + 1).sort(() => 0.5 - Math.random());
     return shuffled.slice(0, randomCount);
   };
+
+  const [paidTables, setPaidTables] = useState(getRandomPaidTables);
 
   const goToOrderTable = (tableNumber) => {
     setSelectedOrderTable(tableNumber);
@@ -42,6 +46,23 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
     }));
   };
 
+  const handleRemoveFromBill = (tableNumber, item) => {
+    setOrders((prevOrders) => {
+      const updatedOrder = [...(prevOrders[tableNumber] || [])];
+      const indexToRemove = updatedOrder.findIndex((i) => i.name === item);
+
+      if (indexToRemove !== -1) {
+        updatedOrder.splice(indexToRemove, 1);
+      }
+
+      return {
+        ...prevOrders,
+        [tableNumber]: updatedOrder,
+      };
+    });
+  };
+
+
   const handlePay = (tableNumber) => {
     setPaidTables((prev) => [...prev, tableNumber]);
     setTableAssignments((prev) => {
@@ -52,7 +73,6 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
 
     setSelectedBillTable(null);
   };
-
 
   const handleActivate = (tableNumber) => {
     setPaidTables((prev) => prev.filter((table) => table !== tableNumber));
@@ -111,9 +131,6 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
         </>
       )}
 
-
-
-
       {
             focusedTable && (
           <button onClick={() => {
@@ -123,85 +140,102 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
           }}>Show All Tables</button>
             )
         }
-        <div className={`overview ${focusedTable ? 'overview_menu' : ''}`}>
-          {!focusedTable && <h3>Overview</h3>}
+      <div className={`overview ${focusedTable ? 'overview_menu' : ''}`}>
+        {!focusedTable && <h3>Overview</h3>}
 
         <ul className={`overview__ul ${focusedTable ? 'overview__ul__focused' : ''}`}>
-            {[...Array(6)].map((_, index) => {
-              const tableNumber = index + 1;
-              const isPaid = paidTables.includes(tableNumber);
+          {[...Array(6)].map((_, index) => {
+            const tableNumber = index + 1;
+            const isPaid = paidTables.includes(tableNumber);
 
-              if (focusedTable && focusedTable !== tableNumber) {
-                return null;
-              }
+            if (focusedTable && focusedTable !== tableNumber) {
+              return null;
+            }
 
-              return (
-                <li
-                  className="overview__ul__li"
-                  key={index}
-                  onDragOver={(e) => {
-                    if (!tableAssignments[tableNumber]) {
-                      e.preventDefault();
-                    }
-                  }}
-
-                  onDrop={(e) => {
+            return (
+              <li
+                className="overview__ul__li"
+                key={index}
+                onDragOver={(e) => {
+                  if (!tableAssignments[tableNumber]) {
                     e.preventDefault();
-                    const data = e.dataTransfer.getData("text/plain");
+                  }
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const data = e.dataTransfer.getData("text/plain");
+                  if (data === "incomingReservation" && !tableAssignments[tableNumber]) {
+                    handleDropReservation(tableNumber);
+                  }
+                }}
+              >
+                Table {tableNumber}
+                {tableAssignments[tableNumber]?.name && (
+                  <>
+                    <p><strong>Reserved for:</strong> {tableAssignments[tableNumber].name}</p>
+                    {tableAssignments[tableNumber].allergies && (
+                      <p><strong>Allergies:</strong> {tableAssignments[tableNumber].allergies}</p>
+                    )}
+                  </>
+                )}
 
-                    if (data === "incomingReservation" && !tableAssignments[tableNumber]) {
-                      handleDropReservation(tableNumber);
-                    }
-                  }}
+                {tableAssignments[tableNumber] || !isPaid ? (
+                  <div className="overview__ul__li__buttons">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedOrderTable(tableNumber);
+                        setSelectedBillTable(null);
+                        setFocusedTable(tableNumber);
+                      }}
+                    >
+                      Menu
+                    </button>
 
-                >
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedBillTable(tableNumber);
+                        setSelectedOrderTable(null);
+                        setFocusedTable(tableNumber);
+                      }}
+                    >
+                      Bill
+                    </button>
 
-
-                  Table {tableNumber}
-                  {tableAssignments[tableNumber]?.name && (
-                    <>
-                      <p><strong>Reserved for:</strong> {tableAssignments[tableNumber].name}</p>
-                      {tableAssignments[tableNumber].allergies && (
-                        <p><strong>Allergies:</strong> {tableAssignments[tableNumber].allergies}</p>
-                      )}
-                    </>
-                  )}
-
-
-
-                  {tableAssignments[tableNumber] || !isPaid ? (
-                    <>
-                      <div className="overview__ul__li__buttons">
+                    {uploadedJokes?.[tableNumber] && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setSelectedOrderTable(tableNumber);
-                          setSelectedBillTable(null);
-                          setFocusedTable(tableNumber);
+                          const file = uploadedJokes[tableNumber];
+                          const isVideo = file.name.endsWith(".mp4") || file.name.endsWith(".webm");
+                          const mediaElement = document.createElement(isVideo ? "video" : "audio");
+                          mediaElement.src = file.url;
+                          mediaElement.controls = true;
+                          mediaElement.autoplay = true;
+                          mediaElement.classList.add("buttons__media_player");
+                          const container = document.createElement("div");
+                          container.classList.add("buttons__media_container");
+                          container.appendChild(mediaElement);
+                          const closeBtn = document.createElement("button");
+                          closeBtn.textContent = "Close";
+                          closeBtn.classList.add("buttons__media_close");
+                          closeBtn.onclick = () => document.body.removeChild(container);
+                          container.appendChild(closeBtn);
+                          document.body.appendChild(container);
                         }}
                       >
-                        Menu
+                        ▶️ Play Joke
                       </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedBillTable(tableNumber);
-                          setSelectedOrderTable(null);
-                          setFocusedTable(tableNumber);
-                        }}
-                      >
-                        Bill
-                      </button>
-                    </div>
-                    </>
-                  ) : (
-                    <button onClick={() => handleActivate(tableNumber)}>Activate</button>
-                  )}
-
-                </li>
-              );
-            })}
-          </ul>
+                    )}
+                  </div>
+                ) : (
+                  <button onClick={() => handleActivate(tableNumber)}>Activate</button>
+                )}
+              </li>
+            );
+          })}
+        </ul>
 
         {(selectedOrderTable !== null || selectedBillTable !== null) && (
           <div className="overview__menu">
@@ -209,14 +243,14 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
               <Order
                 tableNumber={selectedOrderTable}
                 addToBill={handleAddToBill}
+                removeFromBill={handleRemoveFromBill} // ← NEW
                 goToTable={goToOrderTable}
                 currentOrder={orders[selectedOrderTable] || []}
                 setJokes={setJokes}
                 setThemes={setThemes}
+                uploadedJokes={uploadedJokes}
+                setUploadedJokes={setUploadedJokes}
               />
-
-
-
 
             )}
 
@@ -225,14 +259,13 @@ function Overview({ incomingReservation, setIncomingReservation, setJokes, setTh
                 tableNumber={selectedBillTable}
                 orders={orders[selectedBillTable] || []}
                 onPay={handlePay}
-                goToTable={goToBillTable} 
+                goToTable={goToBillTable}
               />
             )}
           </div>
         )}
+      </div>
 
-
-        </div>
     </>
   );
 }
