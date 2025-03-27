@@ -13,6 +13,8 @@ function Order({ tableNumber, addToBill, goToTable, currentOrder }) {
   const [itemCounts, setItemCounts] = useState({});
   const [jokeInput, setJokeInput] = useState("");
   const [jokeSubmitted, setJokeSubmitted] = useState(false);
+  const [isLaughing, setIsLaughing] = useState(false);
+
 
   useEffect(() => {
     setItemCounts({});
@@ -26,7 +28,7 @@ function Order({ tableNumber, addToBill, goToTable, currentOrder }) {
     <>
     <div>
       <h4>Order for Table {tableNumber}</h4>
-        <ul className="overview__menu__list">
+        <ul className= {`overview__menu__list ${isLaughing ? 'laughing' : ''}`}>
           <li className="overview__menu__list__li">
             <p className="menu__list__li__name"><span>Entrees</span><span>3€</span></p>
             <div className="menu__list__li__add">
@@ -141,6 +143,9 @@ function Order({ tableNumber, addToBill, goToTable, currentOrder }) {
                     }
                     addToBill(tableNumber, "Joke", -1);
                     setJokeSubmitted(true);
+                    setIsLaughing(true);
+
+                    setTimeout(() => setIsLaughing(false), 600);
                   }}
                 >
                   Submit

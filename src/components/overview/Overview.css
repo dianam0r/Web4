@@ -39,6 +39,11 @@ gap: 1rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.overview__ul__li__buttons{
+    display: flex;
+    /* flex-direction: column; */
     gap: 1rem;
 }
 
@@ -148,3 +153,28 @@ margin-block-end: 1rem;
     width: fit-content;
 }
 
+.laughing {
+    animation: rainbow-laugh 1s linear;
+}
+
+@keyframes rainbow-laugh {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    25% {
+        filter: hue-rotate(90deg);
+    }
+
+    50% {
+        filter: hue-rotate(180deg);
+    }
+
+    75% {
+        filter: hue-rotate(270deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}

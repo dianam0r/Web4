@@ -52,7 +52,6 @@ function Overview({ incomingReservation, setIncomingReservation }) {
     setTableAssignments((prev) => {
       const updated = { ...prev };
       delete updated[tableNumber];
-      localStorage.setItem("tableAssignments", JSON.stringify(updated)); 
       return updated;
     });
 
@@ -81,8 +80,12 @@ function Overview({ incomingReservation, setIncomingReservation }) {
     if (incomingReservation) {
       setTableAssignments((prev) => ({
         ...prev,
-        [tableNumber]: incomingReservation.name,
+        [tableNumber]: {
+          name: incomingReservation.name,
+          allergies: incomingReservation.allergies,
+        },
       }));
+
 
       setPaidTables((prev) => prev.filter((num) => num !== tableNumber));
 
@@ -144,26 +147,39 @@ function Overview({ incomingReservation, setIncomingReservation }) {
                 <li
                   className="overview__ul__li"
                   key={index}
-                  onDragOver={(e) => e.preventDefault()}
+                  onDragOver={(e) => {
+                    if (!tableAssignments[tableNumber]) {
+                      e.preventDefault();
+                    }
+                  }}
+
                   onDrop={(e) => {
                     e.preventDefault();
                     const data = e.dataTransfer.getData("text/plain");
-                    if (data === "incomingReservation") {
+
+                    if (data === "incomingReservation" && !tableAssignments[tableNumber]) {
                       handleDropReservation(tableNumber);
                     }
                   }}
+
                 >
 
 
                   Table {tableNumber}
-                  {tableAssignments[tableNumber] && (
-                    <p><strong>Reserved for:</strong> {tableAssignments[tableNumber]}</p>
+                  {tableAssignments[tableNumber]?.name && (
+                    <>
+                      <p><strong>Reserved for:</strong> {tableAssignments[tableNumber].name}</p>
+                      {tableAssignments[tableNumber].allergies && (
+                        <p><strong>Allergies:</strong> {tableAssignments[tableNumber].allergies}</p>
+                      )}
+                    </>
                   )}
 
-                  {isPaid ? (
-                    <button onClick={() => handleActivate(tableNumber)}>Activate</button>
-                  ) : (
+
+
+                  {tableAssignments[tableNumber] || !isPaid ? (
                     <>
+                      <div className="overview__ul__li__buttons">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -179,13 +195,17 @@ function Overview({ incomingReservation, setIncomingReservation }) {
                           e.stopPropagation();
                           setSelectedBillTable(tableNumber);
                           setSelectedOrderTable(null);
-                          setFocusedTable(tableNumber); 
+                          setFocusedTable(tableNumber);
                         }}
                       >
                         Bill
                       </button>
+                    </div>
                     </>
+                  ) : (
+                    <button onClick={() => handleActivate(tableNumber)}>Activate</button>
                   )}
+
                 </li>
               );
             })}

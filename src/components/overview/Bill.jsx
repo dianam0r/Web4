@@ -1,11 +1,13 @@
 import { useState } from "react";
 
-function Bill({ tableNumber, orders, onPay }) { 
-  const [discountApplied, setDiscountApplied] = useState(false); 
+function Bill({ tableNumber, orders, onPay }) {
+  const [discountApplied, setDiscountApplied] = useState(false);
 
   const totalBeforeDiscount = orders.reduce((sum, item) => sum + item.price, 0);
-  const discountAmount = discountApplied ? totalBeforeDiscount * 0.3 : 0; 
+  const discountAmount = discountApplied ? totalBeforeDiscount * 0.3 : 0;
   const total = totalBeforeDiscount - discountAmount;
+
+  const noItems = orders.length === 0;
 
   return (
     <>
@@ -23,15 +25,21 @@ function Bill({ tableNumber, orders, onPay }) {
       </ul>
       <p>Total: {totalBeforeDiscount.toFixed(2)}€</p>
       {discountApplied && <p>Discount: -{discountAmount.toFixed(2)}€</p>}
-      <p>Final Total: {total.toFixed(2)}€</p> 
+      <p>Final Total: {total.toFixed(2)}€</p>
+
       <div className="bill__buttons">
         <button
           onClick={() => setDiscountApplied(true)}
-          disabled={discountApplied} 
+          disabled={discountApplied || noItems} 
         >
           Voucher (30% Off)
         </button>
-        <button onClick={() => onPay(tableNumber)}>Pay</button> 
+        <button
+          onClick={() => onPay(tableNumber)}
+          disabled={noItems}
+        >
+          Pay
+        </button>
       </div>
     </>
   );

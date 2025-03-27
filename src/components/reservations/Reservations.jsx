@@ -111,7 +111,6 @@ function Reservations({ setActiveSection, setIncomingReservation }) {
                   {editingIndex === index ? (
                     <div>
                       <input
-
                         type="text"
                         defaultValue={reservation.name}
                         onChange={(e) => (reservation.name = e.target.value)}
@@ -164,6 +163,7 @@ function Reservations({ setActiveSection, setIncomingReservation }) {
                           </div>
                           <p className="cards__header__guests"><strong>Guests:</strong> {reservation.guests}</p>
                           <p className="cards__header__details"><strong>Details:</strong> {reservation.details}</p>
+                          <p className="cards__header__allergies"><strong>Allergies:</strong> {reservation.allergies || 'None'}</p>
                         </div>
                     </div>
                   )}

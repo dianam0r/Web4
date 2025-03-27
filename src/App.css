@@ -38,6 +38,7 @@ body{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
+  animation: fadeIn 0.4s ease-in forwards;
 }
 
 button {
@@ -63,4 +64,17 @@ button:focus {
   flex-direction: column;
   height: 100vh;
       justify-content: center;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

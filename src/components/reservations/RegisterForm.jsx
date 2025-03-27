@@ -8,9 +8,11 @@ function RegisterForm({ setReservations }) {
       name: e.target.name.value,
       guests: guests,
       details: e.target.details.value,
+      allergies: e.target.allergies.value,
       day: e.target.day.value,
       time: e.target.time.value,
     };
+
 
     setReservations((prev) => [newReservation, ...prev]);
 
@@ -44,11 +46,35 @@ function RegisterForm({ setReservations }) {
 
         
           <label htmlFor="day">Day</label>
-          <input type="date" id="day" required />
+          <input type="date" id="day" required min={new Date().toISOString().split("T")[0]} />
+
 
         
           <label htmlFor="time">Time</label>
-          <input type="time" id="time" required/>
+          <select id="time" required>
+            <option value="">-- Select Time --</option>
+            <optgroup label="Lunch">
+              <option value="12:00">12:00</option>
+              <option value="12:30">12:30</option>
+              <option value="13:00">13:00</option>
+              <option value="13:30">13:30</option>
+              <option value="14:00">14:00</option>
+            </optgroup>
+            <optgroup label="Dinner">
+              <option value="18:00">18:00</option>
+              <option value="18:30">18:30</option>
+              <option value="19:00">19:00</option>
+              <option value="19:30">19:30</option>
+              <option value="20:00">20:00</option>
+              <option value="20:30">20:30</option>
+              <option value="21:00">21:00</option>
+              <option value="21:30">21:30</option>
+            </optgroup>
+          </select>
+
+          <label htmlFor="allergies">Allergies</label>
+          <input type="text" id="allergies" placeholder="e.g. nuts, gluten" />
+
 
         <button type="submit" className="submitButton">Register</button>
       </form>
