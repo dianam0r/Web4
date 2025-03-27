@@ -3,7 +3,7 @@ import RegisterForm from './RegisterForm'
 import { useState, useEffect } from "react";
 
 
-function Reservations({ setActiveSection }) {
+function Reservations({ setActiveSection, setIncomingReservation }) {
 
   const [showForm, setShowForm] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
@@ -44,8 +44,6 @@ function Reservations({ setActiveSection }) {
   const handleClearAll = () => {
     setReservations([]); 
     setCancellations([]); 
-    localStorage.removeItem("reservations"); 
-    localStorage.removeItem("cancellations"); 
   };
 
   const handleSaveEdit = (index, updatedReservation) => {
@@ -63,7 +61,6 @@ function Reservations({ setActiveSection }) {
 
   return (
     <>
-    {/* article - dashboard__reservations */}
       <button onClick={handleClearAll}>Clear All Reservations</button>
       <div className="dashboard__reservations__layout">
         <section className="reservations__layout__reserved">
@@ -93,20 +90,21 @@ function Reservations({ setActiveSection }) {
                 draggable
                 onDrag={() => setActiveSection('overview')}
               >
+                <div className="cards__times">
+                  <p className="cards__times__day">2025-02-27</p>
+                  <p className="cards__times__time">20:00</p>
+                </div>
                 <div className="cards__header">
                   <p className='cards__header__name'><strong>Name:</strong> Melanie</p>
                   <p className='cards__header__guests'><strong>Guests:</strong> 4</p>
                   <p className='cards__header__details'><strong>Details:</strong> Brings 2 kids</p>
                 </div>
-                <div className="cards__times">
-                  <p className="cards__times__day">2025-02-27</p>
-                  <p className="cards__times__time">20:00</p>
-                </div>
+                
               </li>
 
               {filteredReservations.map((reservation, index) => (
                 <li
-                draggable="true"
+                  draggable="true"
                   className="reserved__ul__cards"
                   key={index}
                 >
@@ -154,6 +152,15 @@ function Reservations({ setActiveSection }) {
                           <div className="cards__header__buttons">
                             <button onClick={() => handleCancel(index)}>Cancel</button>
                             <button onClick={() => setEditingIndex(index)}>Edit</button>
+                            <button onClick={() => {
+                              setActiveSection('overview');
+                              setIncomingReservation(reservation);
+
+                              const updatedReservations = reservations.filter((_, idx) => idx !== index);
+                              setReservations(updatedReservations);
+
+                              localStorage.setItem("reservations", JSON.stringify(updatedReservations));
+                            }}>Arrived</button>
                           </div>
                           <p className="cards__header__guests"><strong>Guests:</strong> {reservation.guests}</p>
                           <p className="cards__header__details"><strong>Details:</strong> {reservation.details}</p>
@@ -172,12 +179,12 @@ function Reservations({ setActiveSection }) {
             {cancellations.map((canceled, index) => (
               <li className="cancellation__ul__cards" key={index}>
                 <div className="cancellation__ul__cards__flex">
-                  <div>
+                  <div className='cancellation__ul__cards__flex__times'>
                     <p className="cancelled__cards__flex__day">{canceled.day}</p>
                     <p className="cancelled__cards__flex__time">{canceled.time}</p>
                   </div>
-                  <div>
-                    <p><strong>Name:</strong> {canceled.name}</p>
+                  <div className='cancellation__ul__cards__flex__header'>
+                    <p className='cancellation__ul__cards__flex__header__name'><strong>Name:</strong> {canceled.name}</p>
                     <p><strong>Guests:</strong> {canceled.guests}</p>
                     <p><strong>Details:</strong> {canceled.details}</p>
                   </div>

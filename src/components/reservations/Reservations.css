@@ -50,7 +50,6 @@
   font-size: 3rem;
 }
 
-/* here */
 .cancellations__title{
   text-align: center;
   grid-column: 2;
@@ -61,27 +60,6 @@
   grid-column: 2;
   grid-row: 3;
 }
-
-/* .reserved__days>li::after {
-  content: "/";
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-.reserved__days>li:last-child::after {
-  content: "";
-}
-
-.reserved__days li>button {
-  background-color: transparent;
-  color: #8C2704;
-  border: none;
-}
-
-.reserved__days li>button:hover {
-  font-weight: bold;
-  border: none;
-} */
 
 .cancellations__ul,
 .reserved__ul{
@@ -140,17 +118,11 @@ gap: 1rem;
   margin-block-start: -45vh;
 }
 
-
-
-/* .reserved__ul__cards__flex {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-} */
-
+.cancellation__ul__cards__flex__header,
 .cards__header{
 font-size: 1.5rem;
 }
-
+.cancellation__ul__cards__flex__header__name,
 .cards__header__name{
   font-size: 2rem;
 }
@@ -173,7 +145,7 @@ font-size: 1.2rem;
   color: #8C2704;
 }
 
-
+.cancellation__ul__cards__flex__times,
  .cards__times {
   display: flex;
   justify-content: space-between;
@@ -181,3 +153,47 @@ font-size: 1.2rem;
   margin-block-start: -5vh;
   margin-inline-start: -1vw;
 }
+
+.reserved__ul__cards {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.reservations__layout__reserved__form input {
+  background-color: #8c2604ac;
+  color: #F2D8C9;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.reservations__layout__reserved__form label {
+  color: #8C2704;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+ #time{
+  margin-block-end: 0.5rem;
+ }
+
+ .dragging-clone {
+   position: relative;
+   z-index: 2;
+   background-color: white;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+   cursor: grabbing;
+ }
+
+ .reservations__layout__reserved__form {
+border: 0.5rem solid #8C2704;
+  padding: 1.5rem;
+  border-radius: 2rem;
+ }

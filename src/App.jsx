@@ -5,6 +5,7 @@ import Overview from './components/overview/Overview.jsx'
 
 function App() {
   const [activeSection, setActiveSection] = useState('reservations');
+  const [incomingReservation, setIncomingReservation] = useState(null);
 
   return (
     <>
@@ -22,11 +23,39 @@ function App() {
           {activeSection === 'reservations' && (
           <article className="dashboard__reservations">
             <h3 className='hidden'>Reservations</h3>
-            <Reservations setActiveSection={setActiveSection} />
+            <Reservations
+              setActiveSection={setActiveSection}
+              setIncomingReservation={setIncomingReservation}
+            />
+      {incomingReservation && (
+        <>
+          <div
+            className="overview__incoming"
+            draggable
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "incomingReservation");
+            }}
+          >
+            <h4>Incoming Reservation</h4>
+            <p><strong>Name:</strong> {incomingReservation.name}</p>
+            <p><strong>Guests:</strong> {incomingReservation.guests}</p>
+            <p><strong>Details:</strong> {incomingReservation.details}</p>
+            <p><strong>Date:</strong> {incomingReservation.day}</p>
+            <p><strong>Time:</strong> {incomingReservation.time}</p>
+          </div>
+
+          <p>Drag this reservation to a table</p>
+        </>
+      )}
+
             </article>)}
           {activeSection === 'overview' && (
           <article className="dashboard__overview">
-            <Overview />
+            <Overview
+              incomingReservation={incomingReservation}
+              setIncomingReservation={setIncomingReservation}
+            />
+
           </article>)}
           {activeSection === 'joke' && (
             <section className="dashboard__section__joke">

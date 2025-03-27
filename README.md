@@ -11,11 +11,4 @@ Currently, two official plugins are available:
 
 If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
-
-Deploy
-Requirements
-catApi
-ask about localstorage useEffect
-ask handleClearAll in reservations is this the right way to do it in the array
-array tables overview
-reduce and to fixed in bill for the discount
+check if everything being used (check the cards of reservation minus something, minus after adding 1 in the order)
