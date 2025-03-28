@@ -96,12 +96,13 @@ function Order({ tableNumber, addToBill, goToTable, currentOrder, setJokes, setT
               }}
             >
               <p>Submit your joke:</p>
-              <input
-                type="text"
+              <textarea
+                className="joke_form__joke"
                 placeholder="Type a joke or video link"
                 value={jokeInput}
                 required
                 onChange={(e) => setJokeInput(e.target.value)}
+                rows={4}
               />
               <label>Choose a holiday:</label>
               <select

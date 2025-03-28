@@ -169,7 +169,7 @@ font-size: 1.2rem;
 }
 
 
-input, select {
+input, select, textarea {
   background-color: #8c2604ac;
   color: var(--secondary-color);
   border: none;
